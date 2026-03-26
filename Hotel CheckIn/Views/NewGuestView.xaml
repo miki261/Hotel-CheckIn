@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Hotel_CheckIn.Views.NewGuestView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="#0F172A">
+
+    <Grid Margin="30">
+
+        <StackPanel Width="300">
+
+            <TextBlock Text="New Guest"
+                       FontSize="24"
+                       Foreground="White"
+                       Margin="0,0,0,20"/>
+
+            <TextBlock Text="Full Name" Foreground="White"/>
+            <TextBox Height="30" Margin="0,5"/>
+
+            <TextBlock Text="ID / Passport" Foreground="White"/>
+            <TextBox Height="30" Margin="0,5"/>
+
+            <TextBlock Text="Room Number" Foreground="White"/>
+            <TextBox Height="30" Margin="0,5"/>
+
+            <Button Content="Check In"
+                    Height="40"
+                    Background="#2563EB"
+                    Foreground="White"
+                    Margin="0,15,0,0"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
