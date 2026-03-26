@@ -7,58 +7,55 @@
         WindowStartupLocation="CenterScreen"
         Background="#0F172A">
 
-    <Grid>
+	<!-- Styles - MOVED BEFORE Grid -->
+	<Window.Resources>
+		<Style x:Key="NavButton" TargetType="Button">
+			<Setter Property="Margin" Value="10"/>
+			<Setter Property="Height" Value="50"/>
+			<Setter Property="Background" Value="#2563EB"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border Background="{TemplateBinding Background}" CornerRadius="10">
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Background" Value="#3B82F6"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+	<Grid>
+		<!-- Rest of your content unchanged -->
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="220"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 
-        <!-- Sidebar -->
-        <StackPanel Background="#020617">
-
-            <TextBlock Text="HOTEL"
+		<!-- Sidebar -->
+		<StackPanel Background="#020617" Grid.Column="0">
+			<TextBlock Text="HOTEL"
                        Foreground="White"
                        FontSize="22"
                        Margin="20"
                        FontWeight="Bold"/>
 
-            <Button Content="New Guest" Click="NewGuest_Click" Style="{StaticResource NavButton}"/>
-            <Button Content="Current Reservations" Click="Reservations_Click" Style="{StaticResource NavButton}"/>
-            <Button Content="History" Click="History_Click" Style="{StaticResource NavButton}"/>
+			<Button Content="New Guest" Click="NewGuest_Click" Style="{StaticResource NavButton}"/>
+			<Button Content="Current Reservations" Click="Reservations_Click" Style="{StaticResource NavButton}"/>
+			<Button Content="History" Click="History_Click" Style="{StaticResource NavButton}"/>
+		</StackPanel>
 
-        </StackPanel>
-
-        <!-- Content -->
-        <ContentControl x:Name="MainContent" Grid.Column="1"/>
-
-    </Grid>
-
-    <!-- Styles -->
-    <Window.Resources>
-        <Style x:Key="NavButton" TargetType="Button">
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Background" Value="#2563EB"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#3B82F6"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+		<!-- Content -->
+		<ContentControl x:Name="MainContent" Grid.Column="1"/>
+	</Grid>
 
 </Window>
