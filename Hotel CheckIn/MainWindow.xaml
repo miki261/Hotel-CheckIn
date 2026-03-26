@@ -7,7 +7,7 @@
         WindowStartupLocation="CenterScreen"
         Background="#0F172A">
 
-	<!-- Styles - MOVED BEFORE Grid -->
+	<!-- Styles -->
 	<Window.Resources>
 		<Style x:Key="NavButton" TargetType="Button">
 			<Setter Property="Margin" Value="10"/>
@@ -35,7 +35,7 @@
 	</Window.Resources>
 
 	<Grid>
-		<!-- Rest of your content unchanged -->
+		<!-- Grid -->
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="220"/>
 			<ColumnDefinition Width="*"/>
