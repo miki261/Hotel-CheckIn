@@ -1,20 +1,66 @@
 ﻿<UserControl x:Class="Hotel_CheckIn.Views.ReservationsView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Background="#0F172A">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#0F172A">
 
-    <Grid Margin="30">
-
-        <StackPanel>
-
-            <TextBlock Text="Current Reservations"
+	<Grid Margin="30">
+		<StackPanel>
+			<TextBlock Text="Current Reservations"
                        FontSize="24"
                        Foreground="White"
                        Margin="0,0,0,20"/>
 
-            <ListBox Height="300"/>
+			<ListView x:Name="ReservationsList"
+                      Height="320"
+                      Background="#0F172A"
+                      Foreground="White"
+                      BorderBrush="#334155"
+                      BorderThickness="1"
+                      HorizontalContentAlignment="Stretch">
 
-        </StackPanel>
+				<ListView.Resources>
+					<Style TargetType="GridViewColumnHeader">
+						<Setter Property="Background" Value="#1E293B"/>
+						<Setter Property="Foreground" Value="White"/>
+						<Setter Property="FontWeight" Value="Bold"/>
+						<Setter Property="Padding" Value="10"/>
+					</Style>
 
-    </Grid>
+					<Style TargetType="ListViewItem">
+						<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+						<Setter Property="Background" Value="#0F172A"/>
+						<Setter Property="Foreground" Value="White"/>
+					</Style>
+
+					<Style x:Key="CheckoutButtonStyle" TargetType="Button">
+						<Setter Property="Background" Value="#DC2626"/>
+						<Setter Property="Foreground" Value="White"/>
+						<Setter Property="BorderThickness" Value="0"/>
+						<Setter Property="Padding" Value="10,4"/>
+						<Setter Property="Cursor" Value="Hand"/>
+						<Setter Property="Margin" Value="5"/>
+					</Style>
+				</ListView.Resources>
+
+				<ListView.View>
+					<GridView>
+						<GridViewColumn Header="Guest" Width="140" DisplayMemberBinding="{Binding FullName}" />
+						<GridViewColumn Header="ID / Passport" Width="140" DisplayMemberBinding="{Binding IdPassport}" />
+						<GridViewColumn Header="Room" Width="80" DisplayMemberBinding="{Binding RoomNumber}" />
+						<GridViewColumn Header="Check-In" Width="140" DisplayMemberBinding="{Binding CheckInDate, StringFormat=dd.MM.yyyy HH:mm}" />
+						<GridViewColumn Header="Check-Out" Width="140" DisplayMemberBinding="{Binding CheckOutDate, StringFormat=dd.MM.yyyy HH:mm}" />
+						<GridViewColumn Header="Action" Width="110">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<Button Content="Check Out"
+                                            Style="{StaticResource CheckoutButtonStyle}"
+                                            Click="CheckOut_Click"/>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</StackPanel>
+	</Grid>
 </UserControl>
