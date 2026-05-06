@@ -10,6 +10,13 @@
                        Foreground="White"
                        Margin="0,0,0,20"/>
 
+			<TextBox x:Name="SearchReservationsTextBox"
+                     Height="32"
+                     Margin="0,0,0,15"
+                     Padding="8"
+                     TextChanged="SearchReservationsTextBox_TextChanged"
+                     ToolTip="Search by guest, ID, email, or room" />
+
 			<ListView x:Name="ReservationsList"
                       Height="320"
                       Background="#0F172A"
@@ -40,17 +47,37 @@
 						<Setter Property="Cursor" Value="Hand"/>
 						<Setter Property="Margin" Value="5"/>
 					</Style>
+
+					<Style x:Key="EditButtonStyle" TargetType="Button">
+						<Setter Property="Background" Value="#2563EB"/>
+						<Setter Property="Foreground" Value="White"/>
+						<Setter Property="BorderThickness" Value="0"/>
+						<Setter Property="Padding" Value="10,4"/>
+						<Setter Property="Cursor" Value="Hand"/>
+						<Setter Property="Margin" Value="5"/>
+					</Style>
 				</ListView.Resources>
 
 				<ListView.View>
 					<GridView>
-						<GridViewColumn Header="Guest" Width="130" DisplayMemberBinding="{Binding FullName}" />
-						<GridViewColumn Header="ID / Passport" Width="130" DisplayMemberBinding="{Binding IdPassport}" />
-						<GridViewColumn Header="Email" Width="180" DisplayMemberBinding="{Binding Email}" />
-						<GridViewColumn Header="Room" Width="70" DisplayMemberBinding="{Binding RoomNumber}" />
-						<GridViewColumn Header="Check-In" Width="130" DisplayMemberBinding="{Binding CheckInDate, StringFormat=dd.MM.yyyy HH:mm}" />
-						<GridViewColumn Header="Check-Out" Width="130" DisplayMemberBinding="{Binding CheckOutDate, StringFormat=dd.MM.yyyy HH:mm}" />
-						<GridViewColumn Header="Action" Width="110">
+						<GridViewColumn Header="Guest" Width="120" DisplayMemberBinding="{Binding FullName}" />
+						<GridViewColumn Header="ID / Passport" Width="120" DisplayMemberBinding="{Binding IdPassport}" />
+						<GridViewColumn Header="Email" Width="170" DisplayMemberBinding="{Binding Email}" />
+						<GridViewColumn Header="Room" Width="60" DisplayMemberBinding="{Binding RoomNumber}" />
+						<GridViewColumn Header="Check-In" Width="120" DisplayMemberBinding="{Binding CheckInDate, StringFormat=dd.MM.yyyy HH:mm}" />
+						<GridViewColumn Header="Check-Out" Width="120" DisplayMemberBinding="{Binding CheckOutDate, StringFormat=dd.MM.yyyy HH:mm}" />
+
+						<GridViewColumn Header="Edit" Width="80">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<Button Content="Edit"
+                                            Style="{StaticResource EditButtonStyle}"
+                                            Click="EditReservation_Click"/>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+
+						<GridViewColumn Header="Action" Width="100">
 							<GridViewColumn.CellTemplate>
 								<DataTemplate>
 									<Button Content="Check Out"

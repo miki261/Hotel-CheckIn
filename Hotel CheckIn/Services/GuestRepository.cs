@@ -42,17 +42,30 @@ namespace Hotel_CheckIn.Services
         public void Update(Guest guest)
         {
             using var db = new HotelDbContext();
-            db.Guests.Update(guest);
+
+            var existingGuest = db.Guests.FirstOrDefault(g => g.Id == guest.Id);
+            if (existingGuest == null)
+                return;
+
+            existingGuest.FullName = guest.FullName;
+            existingGuest.IdPassport = guest.IdPassport;
+            existingGuest.Email = guest.Email;
+            existingGuest.RoomNumber = guest.RoomNumber;
+            existingGuest.CheckInDate = guest.CheckInDate;
+            existingGuest.CheckOutDate = guest.CheckOutDate;
+            existingGuest.IsCheckedOut = guest.IsCheckedOut;
+
             db.SaveChanges();
         }
 
-        public bool RoomHasOverlappingReservation(string roomNumber, DateTime newCheckIn, DateTime newCheckOut)
+        public bool RoomHasOverlappingReservation(string roomNumber, DateTime newCheckIn, DateTime newCheckOut, int? ignoreGuestId = null)
         {
             using var db = new HotelDbContext();
 
             return db.Guests.Any(g =>
                 !g.IsCheckedOut &&
                 g.RoomNumber == roomNumber &&
+                (!ignoreGuestId.HasValue || g.Id != ignoreGuestId.Value) &&
                 newCheckIn < g.CheckOutDate &&
                 g.CheckInDate < newCheckOut);
         }

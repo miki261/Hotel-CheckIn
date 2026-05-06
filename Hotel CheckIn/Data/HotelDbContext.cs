@@ -1,6 +1,5 @@
 ﻿using Hotel_CheckIn.Models;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 
 namespace Hotel_CheckIn.Data
 {
@@ -10,8 +9,7 @@ namespace Hotel_CheckIn.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GuestDatabase.db");
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            optionsBuilder.UseSqlite($"Data Source={DatabasePaths.MainDatabasePath}");
         }
     }
 }

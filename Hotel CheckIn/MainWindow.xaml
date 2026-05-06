@@ -7,7 +7,6 @@
         WindowStartupLocation="CenterScreen"
         Background="#0F172A">
 
-	<!-- Styles -->
 	<Window.Resources>
 		<Style x:Key="NavButton" TargetType="Button">
 			<Setter Property="Margin" Value="10"/>
@@ -35,13 +34,11 @@
 	</Window.Resources>
 
 	<Grid>
-		<!-- Grid -->
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="220"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
-		<!-- Sidebar -->
 		<StackPanel Background="#020617" Grid.Column="0">
 			<TextBlock Text="HOTEL"
                        Foreground="White"
@@ -49,13 +46,13 @@
                        Margin="20"
                        FontWeight="Bold"/>
 
+			<Button Content="Dashboard" Click="Dashboard_Click" Style="{StaticResource NavButton}"/>
 			<Button Content="New Guest" Click="NewGuest_Click" Style="{StaticResource NavButton}"/>
 			<Button Content="Current Reservations" Click="Reservations_Click" Style="{StaticResource NavButton}"/>
 			<Button Content="History" Click="History_Click" Style="{StaticResource NavButton}"/>
+			<Button Content="Room Status" Click="RoomStatus_Click" Style="{StaticResource NavButton}"/>
 		</StackPanel>
 
-		<!-- Content -->
 		<ContentControl x:Name="MainContent" Grid.Column="1"/>
 	</Grid>
-
 </Window>

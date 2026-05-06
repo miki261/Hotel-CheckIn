@@ -10,6 +10,13 @@
                        Foreground="White"
                        Margin="0,0,0,20"/>
 
+			<TextBox x:Name="SearchHistoryTextBox"
+                     Height="32"
+                     Margin="0,0,0,15"
+                     Padding="8"
+                     TextChanged="SearchHistoryTextBox_TextChanged"
+                     ToolTip="Search by guest, ID, email, or room" />
+
 			<ListView x:Name="HistoryList"
                       Height="320"
                       Background="#0F172A"
