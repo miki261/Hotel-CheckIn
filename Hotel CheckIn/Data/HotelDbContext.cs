@@ -10,7 +10,7 @@ namespace Hotel_CheckIn.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Hotel.db");
+            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GuestDatabase.db");
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
     }

@@ -35,11 +35,12 @@
 
 				<ListView.View>
 					<GridView>
-						<GridViewColumn Header="Guest" Width="140" DisplayMemberBinding="{Binding FullName}" />
-						<GridViewColumn Header="ID / Passport" Width="140" DisplayMemberBinding="{Binding IdPassport}" />
-						<GridViewColumn Header="Room" Width="80" DisplayMemberBinding="{Binding RoomNumber}" />
-						<GridViewColumn Header="Check-In" Width="140" DisplayMemberBinding="{Binding CheckInDate, StringFormat=dd.MM.yyyy HH:mm}" />
-						<GridViewColumn Header="Checked Out" Width="140" DisplayMemberBinding="{Binding CheckOutDate, StringFormat=dd.MM.yyyy HH:mm}" />
+						<GridViewColumn Header="Guest" Width="130" DisplayMemberBinding="{Binding FullName}" />
+						<GridViewColumn Header="ID / Passport" Width="130" DisplayMemberBinding="{Binding IdPassport}" />
+						<GridViewColumn Header="Email" Width="180" DisplayMemberBinding="{Binding Email}" />
+						<GridViewColumn Header="Room" Width="70" DisplayMemberBinding="{Binding RoomNumber}" />
+						<GridViewColumn Header="Check-In" Width="130" DisplayMemberBinding="{Binding CheckInDate, StringFormat=dd.MM.yyyy HH:mm}" />
+						<GridViewColumn Header="Checked Out" Width="130" DisplayMemberBinding="{Binding CheckOutDate, StringFormat=dd.MM.yyyy HH:mm}" />
 					</GridView>
 				</ListView.View>
 			</ListView>

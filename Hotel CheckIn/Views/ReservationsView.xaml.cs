@@ -7,7 +7,7 @@ namespace Hotel_CheckIn.Views
 {
     public partial class ReservationsView : UserControl
     {
-        private readonly GuestService _guestService = new GuestService();
+        private readonly ReservationService _reservationService = new ReservationService();
 
         public ReservationsView()
         {
@@ -18,24 +18,33 @@ namespace Hotel_CheckIn.Views
         private void LoadReservations()
         {
             ReservationsList.ItemsSource = null;
-            ReservationsList.ItemsSource = _guestService.GetCurrentReservations();
+            ReservationsList.ItemsSource = _reservationService.GetCurrentReservations();
         }
 
         private void CheckOut_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.DataContext is Guest guest)
-            {
-                var result = MessageBox.Show(
-                    $"Check out guest '{guest.FullName}' from room {guest.RoomNumber}?",
-                    "Confirm Check-Out",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
+            if (sender is not Button button || button.DataContext is not Guest guest)
+                return;
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    _guestService.CheckOutGuest(guest.Id);
-                    LoadReservations();
-                }
+            var result = MessageBox.Show(
+                $"Check out guest '{guest.FullName}' from room {guest.RoomNumber}?",
+                "Confirm Check-Out",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            bool success = _reservationService.CheckOutGuest(guest.Id);
+
+            if (success)
+            {
+                LoadReservations();
+                MessageBox.Show("Guest checked out successfully.");
+            }
+            else
+            {
+                MessageBox.Show("Guest could not be checked out.");
             }
         }
     }

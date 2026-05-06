@@ -1,14 +1,13 @@
 ﻿using Hotel_CheckIn.Data;
 using Hotel_CheckIn.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Hotel_CheckIn.Services
 {
-    public class GuestService
+    public class GuestRepository
     {
-        public void AddGuest(Guest guest)
+        public void Add(Guest guest)
         {
             using var db = new HotelDbContext();
             db.Guests.Add(guest);
@@ -33,17 +32,16 @@ namespace Hotel_CheckIn.Services
                      .ToList();
         }
 
-        public void CheckOutGuest(int guestId)
+        public Guest? GetById(int id)
         {
             using var db = new HotelDbContext();
+            return db.Guests.FirstOrDefault(g => g.Id == id);
+        }
 
-            var guest = db.Guests.FirstOrDefault(g => g.Id == guestId);
-            if (guest == null)
-                return;
-
-            guest.IsCheckedOut = true;
-            guest.CheckOutDate = DateTime.Now;
-
+        public void Update(Guest guest)
+        {
+            using var db = new HotelDbContext();
+            db.Guests.Update(guest);
             db.SaveChanges();
         }
     }

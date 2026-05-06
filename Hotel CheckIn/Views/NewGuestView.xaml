@@ -17,6 +17,9 @@
 			<TextBlock Text="ID / Passport" Foreground="White"/>
 			<TextBox x:Name="IdTextBox" Height="30" Margin="0,5"/>
 
+			<TextBlock Text="Email" Foreground="White"/>
+			<TextBox x:Name="EmailTextBox" Height="30" Margin="0,5"/>
+
 			<TextBlock Text="Room Number" Foreground="White"/>
 			<TextBox x:Name="RoomTextBox" Height="30" Margin="0,5"/>
 

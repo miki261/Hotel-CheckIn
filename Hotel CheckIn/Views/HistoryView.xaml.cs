@@ -5,12 +5,18 @@ namespace Hotel_CheckIn.Views
 {
     public partial class HistoryView : UserControl
     {
-        private readonly GuestService _guestService = new GuestService();
+        private readonly ReservationService _reservationService = new ReservationService();
 
         public HistoryView()
         {
             InitializeComponent();
-            HistoryList.ItemsSource = _guestService.GetHistory();
+            LoadHistory();
+        }
+
+        private void LoadHistory()
+        {
+            HistoryList.ItemsSource = null;
+            HistoryList.ItemsSource = _reservationService.GetHistory();
         }
     }
 }
