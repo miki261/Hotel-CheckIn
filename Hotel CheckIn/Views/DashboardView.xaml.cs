@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using Hotel_CheckIn.Services;
@@ -10,11 +11,13 @@ namespace Hotel_CheckIn.Views
         private readonly DashboardService _dashboardService = new DashboardService();
         private readonly DatabaseBackupService _backupService = new DatabaseBackupService();
         private readonly DatabaseRestoreCoordinator _restoreCoordinator = new DatabaseRestoreCoordinator();
+        private readonly BackupMetadataService _backupMetadataService = new BackupMetadataService();
 
         public DashboardView()
         {
             InitializeComponent();
             LoadStats();
+            LoadLastBackupDate();
         }
 
         private void LoadStats()
@@ -27,12 +30,31 @@ namespace Hotel_CheckIn.Views
             OccupiedRoomsText.Text = stats.OccupiedRooms.ToString();
         }
 
+        private void LoadLastBackupDate()
+        {
+            DateTime? lastBackup = _backupMetadataService.GetLastBackupDate();
+
+            if (lastBackup.HasValue)
+            {
+                LastBackupText.Text = $"Last backup: {lastBackup.Value:dd.MM.yyyy HH:mm}";
+            }
+            else
+            {
+                LastBackupText.Text = "Last backup: Never";
+            }
+        }
+
         private void BackupDatabase_Click(object sender, RoutedEventArgs e)
         {
             bool success = _backupService.BackupDatabase();
 
             MessageBox.Show(
                 success ? "Database backup created successfully." : "Backup cancelled or failed.");
+
+            if (success)
+            {
+                LoadLastBackupDate();
+            }
         }
 
         private void RestoreDatabase_Click(object sender, RoutedEventArgs e)

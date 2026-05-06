@@ -74,6 +74,11 @@
                                    Foreground="White"
                                    Margin="0,0,0,15"/>
 
+						<TextBlock x:Name="LastBackupText"
+                                   Foreground="#CBD5E1"
+                                   Margin="0,0,0,15"
+                                   Text="Last backup: Never"/>
+
 						<TextBlock Text="Create a backup of your current database or restore a previous one."
                                    Foreground="#CBD5E1"
                                    Margin="0,0,0,15"

@@ -10,10 +10,12 @@ namespace Hotel_CheckIn.Services
     public class DatabaseBackupService
     {
         private readonly string _databasePath;
+        private readonly BackupMetadataService _backupMetadataService;
 
         public DatabaseBackupService()
         {
             _databasePath = DatabasePaths.MainDatabasePath;
+            _backupMetadataService = new BackupMetadataService();
         }
 
         public bool BackupDatabase()
@@ -44,6 +46,9 @@ namespace Hotel_CheckIn.Services
                 return false;
 
             File.Copy(_databasePath, dialog.FileName, true);
+
+            _backupMetadataService.SaveLastBackupDate(DateTime.Now);
+
             return true;
         }
 
