@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows;
 
 namespace Hotel_CheckIn.Services
 {
@@ -31,18 +32,25 @@ namespace Hotel_CheckIn.Services
 
         private void OpenEmailDraft(string to, string subject, string body)
         {
-            if (string.IsNullOrWhiteSpace(to))
-                return;
-
-            string mailto =
-                $"mailto:{Uri.EscapeDataString(to)}" +
-                $"?subject={Uri.EscapeDataString(subject)}" +
-                $"&body={Uri.EscapeDataString(body)}";
-
-            Process.Start(new ProcessStartInfo(mailto)
+            try
             {
-                UseShellExecute = true
-            });
+                if (string.IsNullOrWhiteSpace(to))
+                    return;
+
+                string mailto =
+                    $"mailto:{to}" +
+                    $"?subject={Uri.EscapeDataString(subject)}" +
+                    $"&body={Uri.EscapeDataString(body)}";
+
+                Process.Start(new ProcessStartInfo(mailto)
+                {
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Email could not be opened:\n" + ex.Message);
+            }
         }
     }
 }

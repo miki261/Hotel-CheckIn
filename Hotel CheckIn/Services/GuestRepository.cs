@@ -1,5 +1,6 @@
 ﻿using Hotel_CheckIn.Data;
 using Hotel_CheckIn.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,6 +44,17 @@ namespace Hotel_CheckIn.Services
             using var db = new HotelDbContext();
             db.Guests.Update(guest);
             db.SaveChanges();
+        }
+
+        public bool RoomHasOverlappingReservation(string roomNumber, DateTime newCheckIn, DateTime newCheckOut)
+        {
+            using var db = new HotelDbContext();
+
+            return db.Guests.Any(g =>
+                !g.IsCheckedOut &&
+                g.RoomNumber == roomNumber &&
+                newCheckIn < g.CheckOutDate &&
+                g.CheckInDate < newCheckOut);
         }
     }
 }

@@ -42,14 +42,28 @@ namespace Hotel_CheckIn.Services
                 return false;
             }
 
+            DateTime finalCheckIn = _validationService.CombineDateAndTime(checkInDate!.Value, checkInTime!);
+            DateTime finalCheckOut = _validationService.CombineDateAndTime(checkOutDate!.Value, checkOutTime!);
+
+            bool roomUnavailable = _repository.RoomHasOverlappingReservation(
+                roomNumber,
+                finalCheckIn,
+                finalCheckOut);
+
+            if (roomUnavailable)
+            {
+                message = $"Room {roomNumber} is already reserved for the selected time period.";
+                return false;
+            }
+
             var guest = new Guest
             {
                 FullName = fullName,
                 IdPassport = idPassport,
                 RoomNumber = roomNumber,
                 Email = email,
-                CheckInDate = _validationService.CombineDateAndTime(checkInDate!.Value, checkInTime!),
-                CheckOutDate = _validationService.CombineDateAndTime(checkOutDate!.Value, checkOutTime!),
+                CheckInDate = finalCheckIn,
+                CheckOutDate = finalCheckOut,
                 IsCheckedOut = false
             };
 
