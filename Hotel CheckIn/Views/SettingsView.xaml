@@ -4,7 +4,6 @@
              Background="{DynamicResource BgDark}">
 
 	<UserControl.Resources>
-
 		<Style x:Key="ToggleSwitchStyle" TargetType="CheckBox">
 			<Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
 			<Setter Property="Template">
@@ -85,7 +84,6 @@
 													<ColumnDefinition />
 													<ColumnDefinition Width="30" />
 												</Grid.ColumnDefinitions>
-
 												<Path x:Name="Arrow"
                                                       Grid.Column="1"
                                                       Fill="{DynamicResource TextPrimary}"
@@ -164,8 +162,8 @@
                               Height="35"
                               FontSize="16"
                               Style="{StaticResource ThemeAwareComboBox}"
-                              SelectionChanged="ThemeComboBox_SelectionChanged">
-						<ComboBoxItem Content="Dark Theme" IsSelected="True"/>
+                              DropDownClosed="ThemeComboBox_DropDownClosed">
+						<ComboBoxItem Content="Dark Theme"/>
 						<ComboBoxItem Content="Light Theme"/>
 					</ComboBox>
 				</StackPanel>

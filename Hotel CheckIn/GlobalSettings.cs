@@ -2,7 +2,7 @@
 {
     public static class GlobalSettings
     {
-        public static bool EmailEnabled { get; set; } = false;
         public static bool BackupEnabled { get; set; } = true;
+        public static string CurrentTheme { get; set; } = "Dark Theme";
     }
 }

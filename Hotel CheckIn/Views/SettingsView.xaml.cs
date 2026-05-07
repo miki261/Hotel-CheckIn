@@ -9,7 +9,13 @@ namespace Hotel_CheckIn.Views
         public SettingsView()
         {
             InitializeComponent();
+
             BackupCheckBox.IsChecked = GlobalSettings.BackupEnabled;
+
+            if (GlobalSettings.CurrentTheme == "Light Theme")
+                ThemeComboBox.SelectedIndex = 1;
+            else
+                ThemeComboBox.SelectedIndex = 0;
         }
 
         private void BackupCheckBox_Click(object sender, RoutedEventArgs e)
@@ -17,13 +23,19 @@ namespace Hotel_CheckIn.Views
             GlobalSettings.BackupEnabled = BackupCheckBox.IsChecked == true;
         }
 
-        private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ThemeComboBox_DropDownClosed(object sender, System.EventArgs e)
         {
             if (ThemeComboBox.SelectedItem == null) return;
 
             string selectedTheme = (ThemeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
 
-            if (selectedTheme.Contains("Light"))
+            if (selectedTheme == GlobalSettings.CurrentTheme)
+                return;
+
+            GlobalSettings.CurrentTheme = selectedTheme;
+
+            // Promijeni boje
+            if (selectedTheme == "Light Theme")
             {
                 Application.Current.Resources["BgDark"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F1F5F9"));
                 Application.Current.Resources["SidebarDark"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF"));
