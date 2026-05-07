@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Hotel_CheckIn.Services;
@@ -17,6 +18,18 @@ namespace Hotel_CheckIn.Views
 
         private void CheckIn_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(IdTextBox.Text) || !IdTextBox.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("ID / Passport Number must contain only numbers.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(RoomTextBox.Text) || !RoomTextBox.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Room Number must contain only numbers.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             string? checkInTime = (CheckInTimeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
             string? checkOutTime = (CheckOutTimeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
 

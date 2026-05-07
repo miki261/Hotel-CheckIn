@@ -49,7 +49,10 @@ namespace Hotel_CheckIn.Views
             bool success = _backupService.BackupDatabase();
 
             MessageBox.Show(
-                success ? "Database backup created successfully." : "Backup cancelled or failed.");
+                success ? "Database backup created successfully." : "Backup cancelled or failed.",
+                "Backup Status",
+                MessageBoxButton.OK,
+                success ? MessageBoxImage.Information : MessageBoxImage.Warning);
 
             if (success)
             {
@@ -78,7 +81,7 @@ namespace Hotel_CheckIn.Views
 
             _restoreCoordinator.SavePendingRestore(dialog.FileName);
 
-            MessageBox.Show("The app will now close. Start it again to complete the restore.");
+            MessageBox.Show("The app will now close. Start it again to complete the restore.", "Restore Initated", MessageBoxButton.OK, MessageBoxImage.Information);
             Application.Current.Shutdown();
         }
     }

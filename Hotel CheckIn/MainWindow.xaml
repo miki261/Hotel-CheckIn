@@ -3,28 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:Hotel_CheckIn.Views"
         Title="Hotel Check-In"
-        Height="500" Width="900"
+        Height="600" Width="1050"
         WindowStartupLocation="CenterScreen"
-        Background="#0F172A">
+        Background="{DynamicResource BgDark}"
+        FontFamily="Segoe UI">
 
 	<Window.Resources>
 		<Style x:Key="NavButton" TargetType="Button">
-			<Setter Property="Margin" Value="10"/>
-			<Setter Property="Height" Value="50"/>
-			<Setter Property="Background" Value="#2563EB"/>
-			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Margin" Value="10,5"/>
+			<Setter Property="Height" Value="45"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="Cursor" Value="Hand"/>
-			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="FontSize" Value="15"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="HorizontalContentAlignment" Value="Left"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
-						<Border Background="{TemplateBinding Background}" CornerRadius="10">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						<Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="15,0">
+							<ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						</Border>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Background" Value="#3B82F6"/>
+								<Setter Property="Background" Value="{DynamicResource ElementBg}"/>
+								<Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -35,24 +39,34 @@
 
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="220"/>
+			<ColumnDefinition Width="240"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
-		<StackPanel Background="#020617" Grid.Column="0">
-			<TextBlock Text="HOTEL"
-                       Foreground="White"
-                       FontSize="22"
-                       Margin="20"
-                       FontWeight="Bold"/>
+		<Border Background="{DynamicResource SidebarDark}" Grid.Column="0">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="20" ShadowDepth="2" Direction="0" Color="Black" Opacity="0.2"/>
+			</Border.Effect>
 
-			<Button Content="Dashboard" Click="Dashboard_Click" Style="{StaticResource NavButton}"/>
-			<Button Content="New Guest" Click="NewGuest_Click" Style="{StaticResource NavButton}"/>
-			<Button Content="Current Reservations" Click="Reservations_Click" Style="{StaticResource NavButton}"/>
-			<Button Content="History" Click="History_Click" Style="{StaticResource NavButton}"/>
-			<Button Content="Room Status" Click="RoomStatus_Click" Style="{StaticResource NavButton}"/>
-		</StackPanel>
+			<StackPanel>
+				<StackPanel Orientation="Horizontal" Margin="20,30,20,40">
+					<TextBlock Text="HOTEL" Foreground="{DynamicResource TextPrimary}" FontSize="24" FontWeight="Bold"/>
+					<TextBlock Text=" CHECK-IN" Foreground="{DynamicResource AccentBlue}" FontSize="24" FontWeight="Bold"/>
+				</StackPanel>
 
-		<ContentControl x:Name="MainContent" Grid.Column="1"/>
+				<Button Content="Dashboard" Click="Dashboard_Click" Style="{StaticResource NavButton}"/>
+				<Button Content="New Guest" Click="NewGuest_Click" Style="{StaticResource NavButton}"/>
+				<Button Content="Current Reservations" Click="Reservations_Click" Style="{StaticResource NavButton}"/>
+				<Button Content="History" Click="History_Click" Style="{StaticResource NavButton}"/>
+				<Button Content="Room Status" Click="RoomStatus_Click" Style="{StaticResource NavButton}"/>
+
+				<Border Height="1" Background="{DynamicResource ElementBg}" Margin="20,10"/>
+				<Button Content="⚙ Settings" Click="Settings_Click" Style="{StaticResource NavButton}"/>
+			</StackPanel>
+		</Border>
+
+		<Border Grid.Column="1" Background="{DynamicResource BgDark}">
+			<ContentControl x:Name="MainContent" Margin="25"/>
+		</Border>
 	</Grid>
 </Window>

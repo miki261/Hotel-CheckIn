@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System;
+using System.Windows;
 using Hotel_CheckIn.Views;
 
 namespace Hotel_CheckIn
@@ -9,37 +9,54 @@ namespace Hotel_CheckIn
         public MainWindow()
         {
             InitializeComponent();
-            ShowView(new DashboardView());
+            MainContent.Content = new DashboardView();
+
+            this.Closing += MainWindow_Closing;
         }
 
-        private void ShowView(UserControl view)
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MainContent.Content = view;
+            if (GlobalSettings.BackupEnabled)
+            {
+                try
+                {
+                    var backupService = new Services.DatabaseBackupService();
+                    backupService.BackupDatabase();
+                }
+                catch
+                {
+                }
+            }
         }
 
         private void Dashboard_Click(object sender, RoutedEventArgs e)
         {
-            ShowView(new DashboardView());
+            MainContent.Content = new DashboardView();
         }
 
         private void NewGuest_Click(object sender, RoutedEventArgs e)
         {
-            ShowView(new NewGuestView());
+            MainContent.Content = new NewGuestView();
         }
 
         private void Reservations_Click(object sender, RoutedEventArgs e)
         {
-            ShowView(new ReservationsView());
+            MainContent.Content = new ReservationsView();
         }
 
         private void History_Click(object sender, RoutedEventArgs e)
         {
-            ShowView(new HistoryView());
+            MainContent.Content = new HistoryView();
         }
 
         private void RoomStatus_Click(object sender, RoutedEventArgs e)
         {
-            ShowView(new RoomStatusView());
+            MainContent.Content = new RoomStatusView();
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new SettingsView();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -67,6 +68,28 @@ namespace Hotel_CheckIn.Views
             {
                 LoadReservations();
                 MessageBox.Show("Guest checked out successfully.");
+
+                if (GlobalSettings.EmailEnabled && !string.IsNullOrWhiteSpace(guest.Email))
+                {
+                    try
+                    {
+                        string subject = Uri.EscapeDataString("Check-out Confirmation");
+                        string body = Uri.EscapeDataString($"Dear {guest.FullName},\n\nThank you for staying with us in room {guest.RoomNumber}. We hope to see you again!");
+
+                        string mailtoUri = $"mailto:{guest.Email}?subject={subject}&body={body}";
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = "cmd",
+                            Arguments = $"/c start \"\" \"{mailtoUri}\"",
+                            UseShellExecute = false,
+                            CreateNoWindow = true
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Could not open email client: {ex.Message}", "Email Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
             }
             else
             {
